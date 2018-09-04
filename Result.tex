@@ -1,0 +1,86 @@
+\section{Experimental Result}
+Data set is obtained from ISPD'08 benchmarks since NTHU-Route 2.0 only accepts this format. ten designs are chosen for experiments, four other designs cannot be routed using NTHU-Route 2.0, therefore are not considered. The experiment was run on linux workstation with X-core X.XXGHz CPU and XXGB memory. The 2-pin usage attribute is set to consider L-shape only, which is meant to illustrate the importance of capturing hidden parameter interactions when calculating routability. Because other attributes are also extracted along with L-shapes when training models and predicting congestion, the difference between the routing performance with and without our methods can be considered the impact of our work.
+
+\subsection{Runtime comparison}
+The NTHU-Route 2.0 uses bounding-box routing technique to generate the initial congestion map on which the routability-driven edge shifting is performed. However, for the purpose of routing and other applications such as routability-driven placement, the final congestion map produced by NTHU is generated after the edge shifting and L-shape pattern routing. The runtime comparison is shown in Table \ref{tab:runtime}. The runtime of the bounding box routing algorithm, full estimation and extraction are all directly proportional to the design size. However, extraction is much simpler in contrast to the routing algorithms. We achieved speedups of 9.33X and 17.45X, comparing with bounding box routing and NTHU-Route's estimation method.
+\begin{table*}[htbp]
+\caption{congestion estimation runtime comparison}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multicolumn{2}{l|}{NTHU-Route 2.0 \cite{NTHU}} & \multicolumn{3}{l|}{Proposed Work}        \\ \cline{2-6} 
+                           & Bbox Route   & Full Estimation  & Attribute Extraction & Prediction & Total \\ \hline
+adaptec1                   & 2.02         & 6.49             & 0.42                 & 0.11       & 0.53  \\ \hline
+adaptec2                   & 2.74         & 5.81             & 0.35                 & 0.13       & 0.48  \\ \hline
+adaptec3                   & 11.25        & 20.36            & 0.63                 & 0.5        & 1.13  \\ \hline
+adaptec4                   & 12.16        & 20.62            & 0.58                 & 0.51       & 1.09  \\ \hline
+adaptec5                   & 9.52         & 19.08            & 0.89                 & 0.22       & 1.11  \\ \hline
+bigblue1                   & 1.60         & 4.93             & 0.31                 & 0.05       & 0.36  \\ \hline
+newblue1                   & 2.29         & 4.74             & 0.39                 & 0.2        & 0.59  \\ \hline
+newblue2                   & 5.22         & 9.85             & 0.47                 & 0.20       & 0.67  \\ \hline
+newblue5                   & 19.71        & 34.5             & 1.18                 & 0.35       & 1.53  \\ \hline
+newblue6                   & 13.90        & 24.06            & 0.96                 & 0.17       & 1.13  \\ \hline
+Average                    & 9.33X        & 17.45X           & n/a                  & n/a        & 1.00X \\ \hline
+\end{tabular}
+\label{tab:runtime}
+\end{center}
+\end{table*}
+
+\subsection{Impact on routability-driven edge shifting}
+In order to evaluate the quality of Steiner Tree structure, after all nets of a design has done routability-driven edge shifting, we perform L-shape routing on the optimized topology. The bounding box routing estimation only considers the boundaries of 2-pin boxes, which is the equivalent of performing L-shape routing twice without taken into account other factors. As is mentioned in \cite{fastroute}, only the same technique of routing is being applied for congestion estimation, can we obtain an relatively accurate congestion map for that router. Therefore, L-shape routing is chosen for routing.
+
+We first take adaptec3 as an special case and exclude it, since its total overflow is too abnormal while other two factors stayed in range. This might happen due to the uncontrollable model behaviour which we have not yet fully investigated. As is shown in Table \ref{tab:treequality}, maximum overflow (Max\_OF) has decreased 18\% and total overflow (Total\_OF) has dropped 9\%. Please note that the wirelength (WL) has only changed less than 1\%, which means almost no detour is made, the Steiner Tree topology optimized using our congestion map did avoid congested regions before routing is carried out.
+
+
+
+\begin{table*}[htbp]
+\caption{Result of Steiner Tree quality after edge shifting}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multicolumn{3}{l|}{Bounding Box Routing}     & \multicolumn{3}{l|}{Our Work}  \\ \cline{2-7} 
+                           & WL       & Max\_OF & Total\_OF      & WL       & Max\_OF & Total\_OF \\ \hline
+adaptec1                   & 3391427  & 112     & 245459 (+20\%) & 3391361  & 77      & 203315    \\ \hline
+adaptec2                   & 3207461  & 93      & 152268 (+15\%) & 3207459  & 92      & 132709    \\ \hline
+adaptec3                   & 9346466  & 80      & 593070 (-90\%) & 9346462  & 75      & 4947842   \\ \hline
+adaptec4                   & 8891886  & 75      & 220259 (+63\%) & 8891797  & 63      & 134954    \\ \hline
+adaptec5                   & 9505500  & 132     & 603652 (+8\%)  & 9805443  & 116     & 559175    \\ \hline
+bigblue1                   & 3433454  & 76      & 218667 (+1\%)  & 3433406  & 66      & 217006    \\ \hline
+newblue1                   & 2325703  & 52      & 52556 (-1\%)   & 2325657  & 43      & 52821     \\ \hline
+newblue2                   & 4604357  & 89      & 77374 (+42\%)  & 4604356  & 67      & 54487     \\ \hline
+newblue5                   & 14230198 & 155     & 627669 (+13\%) & 14230009 & 123     & 556639    \\ \hline
+newblue6                   & 9755863  & 103     & 475561 (-12\%) & 9755823  & 106     & 544858    \\ \hline
+Average (ex. adaptec3)     & 0.99     & 1.18    & 1.09           & 1        & 1       & 1         \\ \hline
+\end{tabular}
+\label{tab:treequality}
+\end{center}
+\end{table*}
+
+\subsection{Global Routing Performance}
+The executable compiled from NTHU-Route source code could not successfully run through the post-processing for some of the designs. Therefore, we are only comparing the output in the first phase. The overflow threshold is set to be 200, which means the router will proceed to post-processing when overflow goes below 200 during iterations. The post-processing is a process to erase the history cost of all edges from the router's record, so that the edges previously visited but not heavily occupied can be freed as valid candidates again. 
+
+We can observe from the Table \ref{tab:gr} that by applying our congestion map, the Total\_OF of all designs are smaller than corresponding ones, summed up in a total of 10\% improvment. Lower Total\_OF represents a higher chance of being successfully routed. Moreover, it would lighten the task of the post-processing. Also worth noticing, the Total\_OF of adaptec2, adaptec3, newblue2 all have a large gap between using original and our congestion map. by modifying the threshold value based upon these experimental data, we can reduce the number of iterations. Other factors are tied, which means it is feasible that we can replace the original pattern-route based congestion estimation by the output of our data-learning based congestion prediction model.
+
+
+\begin{table*}[htbp]
+\caption{Result of Global Routing Performance}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multicolumn{4}{l|}{NTHU-Route 2.0}          & \multicolumn{4}{l|}{NTHU-Route 2.0 with Our Work} \\ \cline{2-9} 
+                           & \#iteration & Max\_OF & Total\_OF & WL       & \#iteration   & Max\_OF  & Total\_OF  & WL        \\ \hline
+adaptec1                   & 11          & 2       & 170       & 3595770  & 11            & 2        & 166        & 3593832   \\ \hline
+adaptec2                   & 12          & 2       & 197       & 3307228  & 12            & 2        & 175        & 3306489   \\ \hline
+adaptec3                   & 8           & 2       & 177       & 9471843  & 8             & 2        & 128        & 9670341   \\ \hline
+adaptec4                   & 4           & 4       & 116       & 8970266  & 4             & 4        & 115        & 8967345   \\ \hline
+adaptec5                   & 14          & 2       & 173       & 10307879 & 14            & 2        & 143        & 10306712  \\ \hline
+bigblue1                   & 16          & 2       & 143       & 3719329  & 15            & 2        & 198        & 3716884   \\ \hline
+newblue1                   & 23          & 2       & 191       & 2398649  & 23            & 2        & 184        & 2402800   \\ \hline
+newblue2                   & 3           & 4       & 197       & 4643206  & 4             & 4        & 112        & 4642987   \\ \hline
+newblue5                   & 16          & 2       & 182       & 14701827 & 16            & 2        & 174        & 14701360  \\ \hline
+newblue6                   & 17          & 2       & 172       & 10270966 & 17            & 2        & 172        & 10270966  \\ \hline
+Average                    & 1.00        & 1.00    & 1.10      & $\approx$1 & 1           & 1        & 1            & 1  \\ \hline
+\end{tabular}
+\label{tab:gr}
+\end{center}
+\end{table*}
