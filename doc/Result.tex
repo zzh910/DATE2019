@@ -9,7 +9,7 @@ The NTHU-Route 2.0 uses bounding-box routing technique to generate the initial c
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Benchmark} & \multicolumn{2}{l|}{NTHU-Route 2.0 \cite{NTHU}} & \multicolumn{3}{l|}{Proposed Work}        \\ \cline{2-6} 
+\multirow{2}{*}{Benchmark} & \multicolumn{2}{c|}{NTHU-Route 2.0 \cite{NTHU}} & \multicolumn{3}{c|}{Proposed Work}        \\ \cline{2-6} 
                            & Bbox Route   & Full Estimation  & Attribute Extraction & Prediction & Total \\ \hline
 adaptec1                   & 2.02         & 6.49             & 0.42                 & 0.11       & 0.53  \\ \hline
 adaptec2                   & 2.74         & 5.81             & 0.35                 & 0.13       & 0.48  \\ \hline
@@ -21,7 +21,7 @@ newblue1                   & 2.29         & 4.74             & 0.39             
 newblue2                   & 5.22         & 9.85             & 0.47                 & 0.20       & 0.67  \\ \hline
 newblue5                   & 19.71        & 34.5             & 1.18                 & 0.35       & 1.53  \\ \hline
 newblue6                   & 13.90        & 24.06            & 0.96                 & 0.17       & 1.13  \\ \hline
-Average                    & 9.33X        & 17.45X           & n/a                  & n/a        & 1.00X \\ \hline
+Ratio                      & 9.33X        & 17.45X           & n/a                  & n/a        & 1.00X \\ \hline
 \end{tabular}
 \label{tab:runtime}
 \end{center}
@@ -39,7 +39,7 @@ We first take adaptec3 as an special case and exclude it, since its total overfl
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Benchmark} & \multicolumn{3}{l|}{Bounding Box Routing}     & \multicolumn{3}{l|}{Our Work}  \\ \cline{2-7} 
+\multirow{2}{*}{Benchmark} & \multicolumn{3}{c|}{Bounding Box Routing}     & \multicolumn{3}{c|}{Our Work}  \\ \cline{2-7} 
                            & WL       & Max\_OF & Total\_OF      & WL       & Max\_OF & Total\_OF \\ \hline
 adaptec1                   & 3391427  & 112     & 245459 (+20\%) & 3391361  & 77      & 203315    \\ \hline
 adaptec2                   & 3207461  & 93      & 152268 (+15\%) & 3207459  & 92      & 132709    \\ \hline
@@ -51,7 +51,7 @@ newblue1                   & 2325703  & 52      & 52556 (-1\%)   & 2325657  & 43
 newblue2                   & 4604357  & 89      & 77374 (+42\%)  & 4604356  & 67      & 54487     \\ \hline
 newblue5                   & 14230198 & 155     & 627669 (+13\%) & 14230009 & 123     & 556639    \\ \hline
 newblue6                   & 9755863  & 103     & 475561 (-12\%) & 9755823  & 106     & 544858    \\ \hline
-Average (ex. adaptec3)     & 0.99     & 1.18    & 1.09           & 1        & 1       & 1         \\ \hline
+Ratio (ex. adaptec3)       & 0.99     & 1.18    & 1.09           & 1        & 1       & 1         \\ \hline
 \end{tabular}
 \label{tab:treequality}
 \end{center}
@@ -68,7 +68,7 @@ We can observe from the Table \ref{tab:gr} that by applying our congestion map, 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Benchmark} & \multicolumn{4}{l|}{NTHU-Route 2.0}          & \multicolumn{4}{l|}{NTHU-Route 2.0 with Our Work} \\ \cline{2-9} 
+\multirow{2}{*}{Benchmark} & \multicolumn{4}{c|}{NTHU-Route 2.0}          & \multicolumn{4}{c|}{NTHU-Route 2.0 with Our Work} \\ \cline{2-9} 
                            & \#iteration & Max\_OF & Total\_OF & WL       & \#iteration   & Max\_OF  & Total\_OF  & WL        \\ \hline
 adaptec1                   & 11          & 2       & 170       & 3595770  & 11            & 2        & 166        & 3593832   \\ \hline
 adaptec2                   & 12          & 2       & 197       & 3307228  & 12            & 2        & 175        & 3306489   \\ \hline
@@ -80,7 +80,7 @@ newblue1                   & 23          & 2       & 191       & 2398649  & 23  
 newblue2                   & 3           & 4       & 197       & 4643206  & 4             & 4        & 112        & 4642987   \\ \hline
 newblue5                   & 16          & 2       & 182       & 14701827 & 16            & 2        & 174        & 14701360  \\ \hline
 newblue6                   & 17          & 2       & 172       & 10270966 & 17            & 2        & 172        & 10270966  \\ \hline
-Average                    & 1.00        & 1.00    & 1.10      & $\approx$1 & 1           & 1        & 1            & 1  \\ \hline
+Ratio                      & 1.00        & 1.00    & 1.10      & $\approx$1 & 1           & 1        & 1            & 1  \\ \hline
 \end{tabular}
 \label{tab:gr}
 \end{center}
