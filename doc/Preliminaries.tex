@@ -5,11 +5,11 @@
 The key objective of routing is to maximize routability of the design, which is the quality of routing the circuit subject to net and design constraints.
 The routing problem can be formulated as follows:
 \begin{subequations}
-\begin{align}
+\begin{align*}
     \max  \       & f(X), \\
-    \text{s.t.}~~  & d(X) \leq 0, \\
+    \text{s.t.}~~ & d(X) \leq 0, \\
                   & n(X) \leq 0.
-\end{align}
+\end{align*}
 \end{subequations}
 Here the constraints are categorised into two classes, network constraints $n(X)$ and design constraints $d(X)$. Network constraints indicate that the topology of the network must satisfy certain requirements, for example, pins of each net has to be all connected without loops formed. Design constraints, on the other hand, state that the implementation of the network topology is legal, such as no overlapping routes, routing direction follows the layer specifications. Our research fits within the routability optimisation problem. In particular, we are minimising the net constraint of congestion.
 
