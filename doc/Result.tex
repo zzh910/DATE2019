@@ -66,22 +66,21 @@ We can observe from the Table \ref{tab:gr} that by applying our congestion model
 \begin{table*}[htbp]
 \caption{Result of Global Routing Performance}
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Benchmark} & \multicolumn{5}{c|}{NTHU-Route 2.0}                           & \multicolumn{5}{c|}{NTHU-Route 2.0 with Our Work}      \\ \cline{2-11} 
-                           & \#iteration & Max\_OF & Total\_OF & WL       & Time(s)        & \#iteration & Max\_OF & Total\_OF & WL       & Time(s) \\ \hline
-adaptec1                   & 11          & 2       & 170       & 3595770  & 651.60 (+1\%)  & 11          & 2       & 166       & 3593832  & 647.43  \\ \hline
-adaptec2                   & 12          & 2       & 197       & 3307228  & 224.24 (0\%)   & 12          & 2       & 175       & 3306489  & 223.94  \\ \hline
-adaptec3                   & 8           & 2       & 177       & 9471843  & 608.27 (+8\%)  & 8           & 2       & 128       & 9670341  & 561.43  \\ \hline
-adaptec4                   & 4           & 4       & 116       & 8970266  & 119.74 (+36\%) & 4           & 4       & 115       & 8967345  & 77.40   \\ \hline
-adaptec5                   & 14          & 2       & 173       & 10307879 & 1844.65 (+4\%) & 14          & 2       & 143       & 10306712 & 1774.39 \\ \hline
-bigblue1                   & 16          & 2       & 143       & 3719329  & 1407.23 (-4\%) & 15          & 2       & 198       & 3716884  & 1473.37 \\ \hline
-newblue1                   & 23          & 2       & 191       & 2398649  & 956.99 (-9\%)  & 23          & 2       & 184       & 2402800  & 1051.33 \\ \hline
-newblue2                   & 3           & 4       & 197       & 4643206  & 52.90 (+12\%)        & 4           & 4       & 112       & 4642987  & 43.53   \\ \hline
-newblue5                   & 16          & 2       & 182       & 14701827 & 1924.45 (0\%)  & 16          & 2       & 174       & 14701360 & 1925.38 \\ \hline
-newblue6                   & 17          & 2       & 172       & 10270966 & 3229.39 (0\%)  & 17          & 2       & 172       & 10270966 & 3224.76 \\ \hline
-Total Ratio         & 1.00           & 1.00       & 1.10      & 1.00     & 1.00           & 1.00           & 1.00       & 1.00         & 1.00        & 1.00       \\ \hline
-Avg. \%change              &             &         &           &          & +4.8\%         &             &         &           &          &         \\ \hline
+\multirow{2}{*}{Benchmark} & \multicolumn{6}{c|}{NTHU-Route 2.0}                                     & \multicolumn{5}{c|}{NTHU-Route 2.0 with Our Work}      \\ \cline{2-12} 
+                           & \#Iteration & Max\_OF & Total\_OF & WL       & Time(s) & Time \%Improv. & \#Iteration & Max\_OF & Total\_OF & WL       & Time(s) \\ \hline
+adaptec1                   & 11          & 2       & 170       & 3595770  & 651.60  & +1\%           & 11          & 2       & 166       & 3593832  & 647.43  \\ \hline
+adaptec2                   & 12          & 2       & 197       & 3307228  & 224.24  & 0\%            & 12          & 2       & 175       & 3306489  & 223.94  \\ \hline
+adaptec3                   & 8           & 2       & 177       & 9471843  & 608.27  & +8\%           & 8           & 2       & 128       & 9670341  & 561.43  \\ \hline
+adaptec4                   & 4           & 4       & 116       & 8970266  & 119.74  & +36\%          & 4           & 4       & 115       & 8967345  & 77.40   \\ \hline
+adaptec5                   & 14          & 2       & 173       & 10307879 & 1844.65 & +4\%           & 14          & 2       & 143       & 10306712 & 1774.39 \\ \hline
+bigblue1                   & 16          & 2       & 143       & 3719329  & 1407.23 & -4\%           & 15          & 2       & 198       & 3716884  & 1473.37 \\ \hline
+newblue1                   & 23          & 2       & 191       & 2398649  & 956.99  & -9\%           & 23          & 2       & 184       & 2402800  & 1051.33 \\ \hline
+newblue2                   & 3           & 4       & 197       & 4643206  & 52.90   & +12\%          & 4           & 4       & 112       & 4642987  & 43.53   \\ \hline
+newblue5                   & 16          & 2       & 182       & 14701827 & 1924.45 & 0\%            & 16          & 2       & 174       & 14701360 & 1925.38 \\ \hline
+newblue6                   & 17          & 2       & 172       & 10270966 & 3229.39 & 0\%            & 17          & 2       & 172       & 10270966 & 3224.76 \\ \hline
+Total Ratio                & 1.00        & 1.00    & 1.10      & 1.00     & 1.00    & +4.8\%         & 1.00        & 1.00    & 1.00      & 1.00     & 1.00    \\ \hline
 \end{tabular}
 \label{tab:gr}
 \end{center}
