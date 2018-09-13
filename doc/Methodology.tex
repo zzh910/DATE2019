@@ -34,7 +34,7 @@ If there are k paths, the probability of path $p(i)=\frac{A(i)}{\sum^{k}A}$
 Each edge $j$ in path $i$ is assigned a probability $p(i)$ which reflects its likelihood for being used in global routing. Since an edge can belong to more than one potential path, the usage assigned to each edge is a sum of all the path probabilities of which this chosen edge is a part of. Thus, we acquire probabilistic information for each edge to be used in global routing. In an edge-based analyses, this attribute provides us valuable information for the routing probability of an edge from a standalone perspective.
 \end{itemize}
 
-\subsection{Routability-driven edge shifting}
+\subsection{Routability-Driven Edge Shifting}
 We use our routability information for the edge shifting technique in \cite{fastroute}. As is demonstrated in \Cref{fig:edgeshifting}, the congestion map heavily affects the structure of Steiner tree hence the actual routing. The quality of the congestion map as the guidance has to be taken care of.
 \begin{figure}[htbp]
     \centerline{\includegraphics[height=2.1in, width=3in]{edgeshifting}}
@@ -43,11 +43,31 @@ We use our routability information for the edge shifting technique in \cite{fast
 \end{figure}
 
 
-\subsection{Prediction Model Embedded Routability optimisation}
+\subsection{Prediction Model Embedded Routability Optimization}
 After the attributes are extracted, we use previously mentioned MARS \cite{MARS} to predict routability. The reasons of selecting MARS are as follows: 1) Interactions between independent parameters can be captured. 2) Non-linearity can be modeled. 3) Tunning is easy, and in most cases, not needed. 
 
 The output congestion model from MARS is integrated into the global router. After necessary initialisation, FLUTE is performed to construct Steiner trees for each net. The congestion information is then input from the prediction of the congestion model, based on which the tree structure is further optimised and the initial routing executed. The guidance congestion map is removed before the rip-up and re-route stage because all paths are routed and the real congestion information is generated. Therefore the guidance is no longer needed as it will interfere the following process.
 
+\begin{algorithm}
+    \caption{Routability Model Guided Routing}
+    \label{alg:route}
+    \begin{algorithmic}[1]
+        \Require Global Routing Instance.
+        \State \texttt{Init()};
+        \While{net $\gets$ nets.\texttt{read}()}
+            \State \texttt{FLUTE}(net);
+            \State congestion $\gets$ \texttt{inputGuide}(model);
+            \State \texttt{edgeShifting}(net, congestion);
+            \State \texttt{routing}(net, congestion);
+            \State \texttt{removeGuide}(congestion);
+            \While{FALSE = \texttt{metThreshold}()}
+                \State \texttt{ripUpReroute}();
+            \EndWhile
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+
+\iffalse
 \begin{algorithm}
 \SetAlgoLined
 \KwResult{Global Routing Instance}
@@ -66,3 +86,4 @@ The output congestion model from MARS is integrated into the global router. Afte
  }
  \caption{routability model guided routing}
 \end{algorithm}
+\fi
