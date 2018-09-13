@@ -32,9 +32,9 @@ The graph \emph{G} used for global routing needs to capture the capacities of th
 
 High precision capacity metric can be complex and possible in practice, such simple track-based capacity can be extended  to consider specific routing elements such as blockages, vias and pins.
 \subsubsection{Congestion}
-If the total usage of one edge is larger than its capacity, then the tile containing that edge is congested, the value is defined as $c(e)=usage(e)/capacity(e)$. Detailed routing will not be able to route all nets assigned to congested areas due to lack of routing resources. However, it is in some degree tolerable to the detailed router as it can spread the wires from the congested tiles to adjacent less-congested tiles, if there are any.
+If the total usage of one edge is larger than its capacity, then the tile containing that edge is congested, the value is defined as $c(e)=\text{usage}(e)/\text{capacity}(e)$. Detailed routing will not be able to route all nets assigned to congested areas due to lack of routing resources. However, it is in some degree tolerable to the detailed router as it can spread the wires from the congested tiles to adjacent less-congested tiles, if there are any.
 \subsubsection{Overflow}
-Similar to congestion, when the usage of a tile is greater than its capacity, the amount of overhead is called overflow, $of(e)=usage(e)-capacity(e)$.
+Similar to congestion, when the usage of a tile is greater than its capacity, the amount of overhead is called overflow, $of(e)=\text{usage}(e)-\text{capacity}(e)$.
 % \subsubsection{Wirelength}
 % The minimization of wirelength is another important metric for global routing. Decreased wirelength implies smaller power consumption and delays, which are two key factors for  performance-driven optimization. Inherently, congestion minimization conflicts with wirelength minimization, because detours may be introduced to avoid congested regions and that leads to longer wirelength. Therefore, the trade-off between these features has to be carefully tuned based on the requirements of circuit design. 
 
