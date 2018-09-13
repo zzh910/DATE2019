@@ -1,11 +1,20 @@
 \section{Introduction}
 \label{sec:intro}
 \subsection{Motivation}
-With the rapid development of technology nodes, design rules become complicated, and numerous of those have imposed upon layouts to secure viable fabrications. As was discussed in \cite{theimportance}, routability has raised as one of the most important factor to consider during the circuit design workflow, take the minimum spacing rule for example. Space between two adjacent routes began to depend on the metal width at the 130nm node, and it started to rely on the width of these two adjacent wires at the 65nm node. This minimum spacing rule becomes more complicated at the 32nm node. The spacing depends not only on the factors mentioned above but also on their runlength, which is the total length of two adjacent wires run parallel. This phenomenon indicates that one cannot simply sum the widths of all wires in a certain area and assume that this suffices to check whether the routability constraint is satisfied for that said region. In other words, existing approaches for solving physical design problems such as placement and routing scale poorly or does not scale at all for newer and larger designs.
+With the rapid development of technology nodes, design rules become complicated, and numerous of those have imposed upon layouts to secure viable fabrications.
+As was discussed in \cite{theimportance}, routability has raised as one of the most important factor to consider during the circuit design workflow, take the minimum spacing rule for example.
+Space between two adjacent routes began to depend on the metal width at the 130$nm$ node, and it started to rely on the width of these two adjacent wires at the 65nm node.
+This minimum spacing rule becomes more complicated at the 32$nm$ node.
+The spacing depends not only on the factors mentioned above but also on their \textit{runlength}, which is the total length of two adjacent wires run parallel.
+This phenomenon indicates that one cannot simply sum the widths of all wires in a certain area and assume that this suffices to check whether the routability constraint is satisfied for that said region.
+In other words, existing approaches for solving physical design problems such as placement and routing scale poorly or does not scale at all for newer and larger designs.
 
 
 \subsection{Previous Works}
-With the growing design complexity, ``congestion map'' is being used as the metric to deal with routability-driven applications, it indicates regions where routing will be difficult to achieve. Attempts to solve this problem are normally taken place in the early physical design stage. Existing approaches can be categorized as follows:
+With the growing design complexity, ``congestion map'' is being used as the metric to deal with routability-driven applications.
+It indicates regions where routing will be difficult to achieve.
+Attempts to solve this problem are normally taken place in early physical design stages.
+Existing approaches can be categorized as follows:
 \begin{itemize}
 \item \textbf{Static approaches}: Where congestion maps are fixed for placement. The total wirelength of routing regions of the design is calculated using rent's rule in \cite{rentsrule,rentsrulerecursive}, to estimate the corresponding congestion map. However, these algorithms are recursive approach with run-times that scale poorly with the complexity of the design. 
 \item \textbf{Probabilistic approaches}: Where net topologies are probabilistically generated based upon placement.  Lou \etal~\cite{first} first proposed a stochastic estimation approach that calculates the demand of all feasible routes that could be taken for each net and assigned them an equal probability. The work in~\cite{modeling} adapted and extended the concept of~\cite{first} such that it restricts the total set of possible routing configurations per net to eliminate impractical or rarely-used ones. Other papers, such as~\cite{SMD, 3step} consider all possible routing configurations in a grid-cell-wise approach to obtain probability distributions.
@@ -15,7 +24,11 @@ With the growing design complexity, ``congestion map'' is being used as the metr
 
 
 \subsection{Overview of Our Work}
-In this paper, we propose a supervised-learning based algorithm to construct accurate routability model which not only considers local information but global resources as well. The proposed algorithm learns from the placement and global routing instances, we extracted highly ranked local attributes as is studied in \cite{parameterstudy}, while taking into account the global routing information. Experimental results show that our method has a speedup of 9.33X comparing to pattern-routing based methods, and that of 17.45X to conventional mainstream global-routing-based approaches. Moreover, by embedding our prediction model into the design tools, improved performance has been observed not only for global routing, but also routability-driven edge shifting technique proposed in \cite{fastroute}. Detailed discussion is presented in Section \ref{sec:result}. 
+In this paper, we propose a supervised-learning based algorithm to construct accurate routability model which not only considers local information but global resources as well.
+The proposed algorithm learns from the placement and global routing instances and extracts highly ranked local attributes as is studied in \cite{parameterstudy}, while taking into account the global routing information.
+Experimental results show that our method has a speedup of 9.33$\times$ comparing to pattern-routing based methods, and that of 17.45$\times$ to conventional mainstream global-routing-based approaches.
+Moreover, by embedding our prediction model into the design tools, improved performance has been observed not only for global routing, but also routability-driven edge shifting technique proposed in \cite{fastroute}.
+Detailed discussion is presented in Section \ref{sec:result}. 
 
 Our key contributions are as follows:
 \begin{itemize}
@@ -25,4 +38,7 @@ Our key contributions are as follows:
 \item The proposed model has been embedded into the global router to optimise routing topology.
 \end{itemize}
 
-The rest of the paper is organised as follows. Section 2 explains the problem formulation and terminology related to routability optimisation. In Section 3, the proposed framework is presented. The results are discussed in Section 4. Finally, conclusion is presented in Section 5.
+The rest of the paper is organised as follows.
+\Cref{sec:prelim} explains the problem formulation and terminology related to routability optimisation.
+In \Cref{sec:methodology}, the proposed framework is presented.
+The results are discussed in \Cref{sec:result}. Finally, conclusion is presented in \Cref{sec:conlu}.
