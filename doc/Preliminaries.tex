@@ -15,7 +15,7 @@ d(X) \leq 0 \\
 n(X) \leq 0
 \end{split}
 \end{equation}
-Here the constraints are categorized into two classes, network constraints $n(X)$ and design constraints $d(X)$. Network constraints indicate that the topology of the network must satisfy certain requirements, for example, pins of each net has to be all connected without loops formed. Design constraints, on the other hand, state that the implementation of the network topology is legal, such as no overlapping routes, routing direction follows the layer specifications. Our research fits within the routability optimization problem. In particular, we are minimizing the net constraint of congestion.
+Here the constraints are categorised into two classes, network constraints $n(X)$ and design constraints $d(X)$. Network constraints indicate that the topology of the network must satisfy certain requirements, for example, pins of each net has to be all connected without loops formed. Design constraints, on the other hand, state that the implementation of the network topology is legal, such as no overlapping routes, routing direction follows the layer specifications. Our research fits within the routability optimisation problem. In particular, we are minimising the net constraint of congestion.
 
 \subsection{Grid Model}
 \label{subsec:grid model}
@@ -30,7 +30,7 @@ Global routing is performed on a grid which is the logic graph representation of
 
 \subsection{Routing Metrics for Network Constraints}
 \subsubsection{Routing Capacity}
-The graph \emph{G} used for global routing needs to capture the capacities of the routing regions. The capacity of an edge \emph{e} $\in$ \emph{G} between two vetices \emph{u} and \emph{v} is defined as the maximum number of available routing tracks between the routing regions of \emph{u} and \emph{v}. 
+The graph \emph{G} used for global routing needs to capture the capacities of the routing regions. The capacity of an edge \emph{e} $\in$ \emph{G} between two vertices \emph{u} and \emph{v} is defined as the maximum number of available routing tracks between the routing regions of \emph{u} and \emph{v}. 
 
 High precision capacity metric can be complex and possible in practice, such simple track-based capacity can be extended  to consider specific routing elements such as blockages, vias and pins.
 \subsubsection{Congestion}
@@ -41,11 +41,11 @@ Similar to congestion, when the usage of a tile is greater than its capacity, th
 % The minimization of wirelength is another important metric for global routing. Decreased wirelength implies smaller power consumption and delays, which are two key factors for  performance-driven optimization. Inherently, congestion minimization conflicts with wirelength minimization, because detours may be introduced to avoid congested regions and that leads to longer wirelength. Therefore, the trade-off between these features has to be carefully tuned based on the requirements of circuit design. 
 
 \subsection{Supervised Data Learning technique}
-Data-learning is a powerful technique which can drive knowledge from big data, predict and generalize unseen data pattern. There are four main categories: Supervised, Unsupervised, Semi-supervised, and reinforcement learning. In the research field of physical design algorithms, supervised learning is widely used.
+Data-learning is a powerful technique which can drive knowledge from big data, predict and generalise unseen data pattern. There are four main categories: Supervised, Unsupervised, Semi-supervised, and reinforcement learning. In the research field of physical design algorithms, supervised learning is widely used.
 
 As is illustrated in Fig.~\ref{fig:ml_flow}, given certain features as the input, the training process builds a set of models, which will then be evaluated. One way of testing the quality of models is by feeding the same input features as were fed during training to see if predicted values are close enough to the original target output. After the evaluation, acceptable models are selected based on different purposes to make predictions and decisions for various applications. 
 \begin{figure}[htbp]
-	\centerline{\includegraphics[height=0.8in, width=2.6in]{ML_flow}}
+	\centerline{\includegraphics[height=1.1in, width=2.6in]{ML_flow}}
 	\caption{Supervised learning flow}
 	\label{fig:ml_flow}
 \end{figure}
