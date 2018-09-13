@@ -2,12 +2,31 @@
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{algorithmic}
 \usepackage{algorithm2e}
-\usepackage{graphicx}
-\usepackage{textcomp}
+%\usepackage{algpseudocode}                                 % new algorithm package
+%\usepackage{algorithm}
+\usepackage[subrefformat=parens,farskip=0pt,justification=centering]{subfig}
+\captionsetup[subfigure]{labelformat=simple}               % avoid "double brackets" in sub-figure caption
+\renewcommand\thesubfigure{(\alph{subfigure})}             % "Fig.~1b"-->"Fig.1(b)"
+\usepackage[bookmarks=false]{hyperref}
+\hypersetup{
+    colorlinks = true,
+    citecolor  = blue,
+    linkcolor  = blue,
+    urlcolor   = blue,
+}
 \usepackage{cleveref}
+\Crefformat{figure}{Fig.~#2#1#3}                           % "Fig.", instead of "Figure"
+\Crefname{subfigure}{Fig.}{Figs.}
+\Crefformat{table}{TABLE~#2#1#3}                           % "TABLE", instead of "Table"
+\usepackage{caption}
+\captionsetup[table]{skip=4pt}
+\usepackage{balance}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{multirow}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -76,6 +95,7 @@ Back-end design, physical design, placement, routing, routability, supervised da
 \input{./doc/Result}
 \input{./doc/Conclusion}
 
+%\balance
 \bibliographystyle{IEEEtran}
 \bibliography{./ref/Top,./ref/IEEEabrv}
 
