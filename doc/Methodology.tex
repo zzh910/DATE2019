@@ -60,30 +60,30 @@ The output congestion model from MARS is integrated into the global router. Afte
             \State \texttt{edgeShifting}(net, congestion);
             \State \texttt{routing}(net, congestion);
             \State \texttt{removeGuide}(congestion);
-            \While{FALSE = \texttt{metThreshold}()}
+            \While{FALSE == \texttt{metThreshold}()}
                 \State \texttt{ripUpReroute}();
             \EndWhile
         \EndWhile
     \end{algorithmic}
 \end{algorithm}
 
-\iffalse
-\begin{algorithm}
-\SetAlgoLined
-\KwResult{Global Routing Instance}
- initialisation()\;
- \While{net = nets.read()}{
-    FLUTE(net)\;
-    congestion = inputGuide(model)\;
-    edgeShifting(net, congestion)\;
-    routing(net, congestion)\;
-    removeGuide(congestion)\;
+% \iffalse
+% \begin{algorithm}
+% \SetAlgoLined
+% \KwResult{Global Routing Instance}
+%  initialisation()\;
+%  \While{net = nets.read()}{
+%     FLUTE(net)\;
+%     congestion = inputGuide(model)\;
+%     edgeShifting(net, congestion)\;
+%     routing(net, congestion)\;
+%     removeGuide(congestion)\;
     
-    \While{!metThreshold()}{
-        ripUpReroute()\;
-        }
+%     \While{!metThreshold()}{
+%         ripUpReroute()\;
+%         }
   
- }
- \caption{routability model guided routing}
-\end{algorithm}
-\fi
+%  }
+%  \caption{routability model guided routing}
+% \end{algorithm}
+% \fi
