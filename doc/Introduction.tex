@@ -24,14 +24,14 @@ Existing approaches can be categorized as follows.
 
 \subsection{Overview of Our Work}
 In this paper, we propose a supervised-learning based algorithm for constructing an accurate routability model which not only considers local information but global resources as well.
-The proposed algorithm learns from the placement and global routing instances and extracts highly ranked local attributes as studied in \cite{parameterstudy}, while taking into account global routing information.
+The proposed algorithm learns from the placement and global routing instances and extracts highly ranked local features as studied in \cite{parameterstudy}, while taking into account global routing information.
 Experimental results show that our method has a speedup of 9.33$\times$ compared to pattern-routing based methods, and a speedup of 17.45$\times$ when compared to conventional mainstream global-routing-based approaches.
 Moreover, by embedding our prediction model into the design tools, we observed an improved performance not only for global routing, but also for the routability-driven edge shifting technique proposed in \cite{fastroute}.
 
 
 Our key contributions are as follows:
 \begin{itemize}
-\item We introduce  a supervised-learning congestion prediction algorithm to efficiently generate a routability model.
+\item We introduce a supervised-learning congestion prediction algorithm to efficiently generate a routability model.
 \item We describe how to define and extract effective features at a post-placement stage.
 \item We developed a probabilistic algorithm for model training.
 \item We embedded our trained model into the global router to optimise routing topology.
