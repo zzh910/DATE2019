@@ -28,20 +28,28 @@ We use NTHU-Route 2.0 \cite{NTHU} as the platform to implement our routability m
     \label{fig:2pinusage}
 \end{figure}
 
-If $n$ edges constitute path $i$, and let $M(e)$ be the maximum capacity for edge e, then the total availability $A(i)$ for path $i$ is $A(i)=\sum_{e=0}^{n}M(e)$. Following the computation of the total availability of each of the potential paths, the probability of each path is calculated. This calculation is done by obtaining the sum of the total availability of all potential paths between the two pins as shown in \Cref{fig:2pinusage}.
+If $n$ edges constitute path $i$, and let $M(e)$ be the maximum capacity for edge e, then the total availability $A(i)$ for path $i$ is $A(i)=\sum_{e=0}^{n}M(e)$. Note that for any edge $e$ in path $i$, if $M(e)=0$ then entire path is eliminated from candidacy. Following the computation of the total availability of each of the potential paths, the probability of each path is calculated. This calculation is done by obtaining the sum of the total availability of all potential paths between the two pins as shown in \Cref{fig:2pinusage}.
 If there are k paths, the probability of path $p(i)=\frac{A(i)}{\sum^{k}A}$
 
 Each edge $j$ in path $i$ is assigned a probability $p(i)$ which reflects its likelihood for being used in global routing. Since an edge can belong to more than one potential path, the usage assigned to each edge is a sum of all the path probabilities of which this chosen edge is a part of. Thus, we acquire probabilistic information for each edge to be used in global routing. In an edge-based analyses, this feature provides us valuable information for the routing probability of an edge from a standalone perspective.
+
+\begin{figure}[htbp]
+    \centerline{\includegraphics[height=1.5in, width=3in]{2pinexample}}
+    \caption{(a) A design grid with blockage and two possible paths (b) Corresponding routing graph and related edge capacity}
+    \label{fig:2pinexample}
+\end{figure}
+An simple example is shown in \cref{fig:2pinexample}, there are two possible paths, P1 and P2, for routing the pin-pair, where two pins are located at the lower left and upper right corners. From the routing graph we obtain $A(p1)=106$ and $A(p2)=108$. So the probability of choosing path P1 is $p(P1)=106/(106+108)=0.49$, therefore $p(p2)=0.51$. The final usage assigned for edges passed by these two paths will then be increase either 0.49 or 0.51, accordingly.
 \end{itemize}
 
 \subsection{Routability-Driven Edge Shifting}
-We use our routability information for the edge shifting technique in \cite{fastroute}. As is demonstrated in FLUTE\Cref{fig:edgeshifting}, the congestion map heavily affects the structure of Steiner tree hence the actual routing. The quality of the congestion map as the guidance has to be taken care of.
+We use our routability information to guide the edge shifting technique in FLUTE\cite{fastroute}. The congestion map heavily affects the structure of Steiner tree hence the actual routing. Therefore, the quality of the congestion map directly affects that of the tree topology.
+
+To perform shifting is to move Steiner points. The edge that connects at least one Steiner point is selected. The moving direction for the Steiner point is perpendicular to the edge, and the allowed range for moving the said Steiner point is determined by all other pins and points that also connect to the two endpoints of the shifting edge, whichever is shorter. As is demonstrated in \Cref{fig:edgeshifting}, the shifting edge is horizontal, the Steiner point is moving in a vertical direction, and the range of moving is determined by the shortest path which previously connected the pin of the shifting edge and another pin. 
 \begin{figure}[htbp]
-    \centerline{\includegraphics[height=2.1in, width=3in]{edgeshifting}}
+    \centerline{\includegraphics[height=1.8in, width=2.7in]{edgeshifting}}
     \caption{(a) The initial Steiner tree (b) Allowed moving area for Steiner point (c)(d) Modified tree structures based on different congestion map}
     \label{fig:edgeshifting}
 \end{figure}
-
 
 \subsection{Prediction Model Embedded Routability Optimization}
 After the features are extracted, we use MARS \cite{MARS} to predict routability. The reasons of selecting MARS are as follows: 1) Interactions between independent parameters can be captured. 2) Non-linearity can be modeled. 3) Tunning is easy, and in most cases, not needed. 
