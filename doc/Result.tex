@@ -27,22 +27,22 @@
     \caption{Result of Steiner Tree quality after edge shifting}
     \label{tab:treequality}
     %{{{
-    \begin{tabular}{c|c|c|c|c|c|c}
-        \toprule
-        \multirow{2}{*}{Benchmark} & \multicolumn{3}{c|}{Bounding Box Routing}     & \multicolumn{3}{c}{Our Work}  \\ \cline{2-7} 
-                           & WL       & Max\_OF & Total\_OF      & WL       & Max\_OF & Total\_OF \\ \hline
-        adaptec1                   & 3391427  & 112     & 245459 (+20\%) & 3391361  & 77      & 203315    \\ \hline
-        adaptec2                   & 3207461  & 93      & 152268 (+15\%) & 3207459  & 92      & 132709    \\ \hline
-        adaptec3                   & 9346466  & 80      & 593070 (+20\%) & 9346462  & 75      & 494784    \\ \hline
-        adaptec4                   & 8891886  & 75      & 220259 (+63\%) & 8891797  & 63      & 134954    \\ \hline
-        adaptec5                   & 9505500  & 132     & 603652 (+8\%)  & 9805443  & 116     & 559175    \\ \hline
-        bigblue1                   & 3433454  & 76      & 218667 (+1\%)  & 3433406  & 66      & 217006    \\ \hline
-        newblue1                   & 2325703  & 52      & 52556 (-1\%)   & 2325657  & 43      & 52821     \\ \hline
-        newblue2                   & 4604357  & 89      & 77374 (+42\%)  & 4604356  & 67      & 54487     \\ \hline
-        newblue5                   & 14230198 & 155     & 627669 (+13\%) & 14230009 & 123     & 556639    \\ \hline
-        newblue6                   & 9755863  & 103     & 475561 (-12\%) & 9755823  & 106     & 544858    \\ \hline
-        Total Ratio  & 1.00     & 1.18    & 1.11           & 1.00        & 1.00       & 1.00         \\ \bottomrule
-    \end{tabular}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{Benchmark} & \multicolumn{4}{c|}{Bounding Box Routing}           & \multicolumn{3}{c|}{Our Work}  \\ \cline{2-8} 
+                           & WL       & Max\_OF & Total\_OF & Total\_OF \%Change & WL       & Max\_OF & Total\_OF \\ \hline
+adaptec1                   & 3391427  & 112     & 245459    & +20\%              & 3391361  & 77      & 203315    \\ \hline
+adaptec2                   & 3207461  & 93      & 152268    & +15\%              & 3207459  & 92      & 132709    \\ \hline
+adaptec3                   & 9346466  & 80      & 593070    & +20\%              & 9346462  & 75      & 494784    \\ \hline
+adaptec4                   & 8891886  & 75      & 220259    & +63\%              & 8891797  & 63      & 134954    \\ \hline
+adaptec5                   & 9505500  & 132     & 603652    & +8\%               & 9805443  & 116     & 559175    \\ \hline
+bigblue1                   & 3433454  & 76      & 218667    & +1\%               & 3433406  & 66      & 217006    \\ \hline
+newblue1                   & 2325703  & 52      & 52556     & -1\%               & 2325657  & 43      & 52821     \\ \hline
+newblue2                   & 4604357  & 89      & 77374     & +42\%              & 4604356  & 67      & 54487     \\ \hline
+newblue5                   & 14230198 & 155     & 627669    & +13\%              & 14230009 & 123     & 556639    \\ \hline
+newblue6                   & 9755863  & 103     & 475561    & -12\%              & 9755823  & 106     & 544858    \\ \hline
+Total Ratio                & 1.00     & 1.18    & 1.11      & +16.9\%            & 1.00     & 1.00    & 1.00      \\ \hline
+\end{tabular}
     %}}}
 \end{table*}
 
@@ -87,8 +87,6 @@ As is shown in \Cref{tab:treequality}, maximum overflow (\text{Max\_OF}) has dec
 \subsection{Global Routing Performance}
 The full routing process consists of two parts: routing and post-processing. The post-processing is a process to erase the history cost of all edges from the first stage, so that the edges repeatedly visited but not selected due to high congestion can be freed as valid candidates again. This process resets the impact brought by our congestion model to the router. Therefore, we are comparing the outputs of the first routing phase to illustrate the effect of our congestion model on routing. The overflow threshold is set to 200, which means the router will proceed to post-processing when overflow goes below 200 during iterations.
 
-We can observe from the \Cref{tab:gr} that by applying our congestion model, the \text{Total\_OF} of all designs are smaller than corresponding ones, summed up in a totala very fast of 10\% improvement.
-Lower \text{Total\_OF} represents a higher chance of being successfully routed.
-Moreover, it would lighten the task of the post-processing. Although the total runtime of both are close, we achieved an average of 4.8\% acceleration. Also worth noticing, the \text{Total\_OF} of adaptec2, adaptec3, and newblue2 all have a large quantity gap between using the original and our congestion map. by modifying the threshold value based upon these experimental data, we can reduce the number of iterations. Other factors are tied, which means it is feasible that we can replace the original global-routing based congestion estimation by our supervised-learning based congestion prediction model.
+We can observe from the \Cref{tab:gr} that by applying our congestion model, the \text{Total\_OF} of all designs are smaller than corresponding ones, summed up in a total of 10\% improvement. Lower \text{Total\_OF} represents a higher chance of being successfully routed. Moreover, we achieved an average of 4.8\% acceleration in computational time. Also worth noticing, the \text{Total\_OF} of adaptec2, adaptec3, and newblue2 all have a large quantity gap between using the original and our congestion map. by modifying the threshold value based upon these experimental data, we can reduce the number of iterations. Other factors are tied, which means it is feasible that we can replace the original global-routing based congestion estimation by our supervised-learning based congestion prediction model.
 
 
