@@ -12,7 +12,7 @@ We use NTHU-Route 2.0 \cite{NTHU} as the platform to implement our routability m
     \centering
     \subfloat[]{\includegraphics[width=.48\linewidth]{fdpin}  \label{fig:fdpin}}
     \subfloat[]{\includegraphics[width=.48\linewidth]{fdnet}  \label{fig:fdnet}}
-    \caption{Examples of (a) first degree pins; (b) first degree nets;}
+    \caption{Examples of (a) first degree pins; (b) first degree nets.}
 \end{figure}
 
 \item \textbf{First-degree nets}. A tile can contain various pins which belong to different nets. Different pins in a tile can be a part of the same net or part of different nets. The first-degree nets of an edge are the nets that cross-over the space enclosed by either of the two tiles that the chosen edge is a part of, \Cref{fig:fdnet}  gives an example of this feature. 
@@ -33,12 +33,12 @@ If there are k paths, the probability of path $p(i)=\frac{A(i)}{\sum^{k}A}$
 
 Each edge $j$ in path $i$ is assigned a probability $p(i)$ which reflects its likelihood for being used in global routing. Since an edge can belong to more than one potential path, the usage assigned to each edge is a sum of all the path probabilities of which this chosen edge is a part of. Thus, we acquire probabilistic information for each edge to be used in global routing. In an edge-based analyses, this feature provides us valuable information for the routing probability of an edge from a standalone perspective.
 
-\begin{figure}[htbp]
+\begin{figure}[tb!]
     \centerline{\includegraphics[height=1.5in, width=3in]{2pinexample}}
-    \caption{(a) A design grid with blockage and two possible paths (b) Corresponding routing graph and related edge capacity}
+    \caption{(a) A design grid with blockage and two possible paths; (b) Corresponding routing graph and related edge capacity.}
     \label{fig:2pinexample}
 \end{figure}
-An simple example is shown in \cref{fig:2pinexample}, there are two possible paths, P1 and P2, for routing the pin-pair, where two pins are located at the lower left and upper right corners. From the routing graph we obtain $A(p1)=106$ and $A(p2)=108$. So the probability of choosing path P1 is $p(P1)=106/(106+108)=0.49$, therefore $p(p2)=0.51$. The final usage assigned for edges passed by these two paths will then be increase either 0.49 or 0.51, accordingly.
+An simple example is shown in \Cref{fig:2pinexample}, there are two possible paths, P1 and P2, for routing the pin-pair, where two pins are located at the lower left and upper right corners. From the routing graph we obtain $A(p1)=106$ and $A(p2)=108$. So the probability of choosing path P1 is $p(P1)=106/(106+108)=0.49$, therefore $p(p2)=0.51$. The final usage assigned for edges passed by these two paths will then be increase either 0.49 or 0.51, accordingly.
 \end{itemize}
 
 \subsection{Routability-Driven Edge Shifting}
@@ -47,14 +47,23 @@ We use our routability information to guide the edge shifting technique in FLUTE
 To perform shifting is to move Steiner points. The edge that connects at least one Steiner point is selected. The moving direction for the Steiner point is perpendicular to the edge, and the allowed range for moving the said Steiner point is determined by all other pins and points that also connect to the two endpoints of the shifting edge, whichever is shorter. As is demonstrated in \Cref{fig:edgeshifting}, the shifting edge is horizontal, the Steiner point is moving in a vertical direction, and the range of moving is determined by the shortest path which previously connected the pin of the shifting edge and another pin. 
 \begin{figure}[htbp]
     \centerline{\includegraphics[height=1.8in, width=2.7in]{edgeshifting}}
-    \caption{(a) The initial Steiner tree (b) Allowed moving area for Steiner point (c)(d) Modified tree structures based on different congestion map}
+    \caption{(a) The initial Steiner tree (b) Allowed moving area for Steiner point (c)(d) Modified tree structures based on different congestion map.}
     \label{fig:edgeshifting}
 \end{figure}
 
 \subsection{Prediction Model Embedded Routability Optimization}
 After the features are extracted, we use MARS \cite{MARS} to predict routability. The reasons of selecting MARS are as follows: 1) Interactions between independent parameters can be captured. 2) Non-linearity can be modeled. 3) Tunning is easy, and in most cases, not needed. 
 
-First, We pick a median-size design and extract corresponding features. After a model is trained, we select as testing data three other designs with respective small median and large size. A model is deemed acceptable if its max-min congestion range of prediction is within 15\% comparing with that of actual. Then, the congestion model is integrated into the global router. After necessary initialisation such as reading design and creating routing grid, initial Steiner trees are constructed for each net. Shifting lines for each Steiner point is determined based on the initial trees. The congestion information is then input from the congestion model, based on which the tree structure is further optimised by moving Steiner points along their shifting lines. After the tree is adjusted and the routing topology is conducted, the routing follows. In order to minimise the overflow, the Rip-up \& Reroute (\text{RRR}) is performed at last while judging the threshold at each iteration. This stage is focusing on reducing the congestion contributed by real routes, hence the congestion model is removed to not to interfere the \text{RRR}
+First, we pick a median-size design and extract corresponding features.
+After a model is trained, we select as testing data three other designs with respective small median and large size.
+A model is deemed acceptable if its max-min congestion range of prediction is within 15\% comparing with that of actual.
+Then, the congestion model is integrated into the global router.
+After necessary initialisation such as reading design and creating routing grid, initial Steiner trees are constructed for each net.
+Shifting lines for each Steiner point is determined based on the initial trees.
+The congestion information is then input from the congestion model, based on which the tree structure is further optimised by moving Steiner points along their shifting lines.
+After the tree is adjusted and the routing topology is conducted, the routing follows.
+In order to minimise the overflow, the Rip-up \& Reroute (\text{RRR}) is performed at last while judging the threshold at each iteration.
+This stage is focusing on reducing the congestion contributed by real routes, hence the congestion model is removed to not to interfere the \text{RRR}.
 
 \begin{algorithm}
     \caption{Routability Model Guided Routing}
