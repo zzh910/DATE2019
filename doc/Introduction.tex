@@ -1,32 +1,32 @@
 \section{Introduction}
 \label{sec:intro}
 \subsection{Motivation}
-With the rapid development of technology nodes, design rules continue increase in number and complexity in order to secure viable fabrications.
-As discussed in \cite{theimportance}, routability is one of the most important factors to consider during the circuit design workflow.  Taking the minimum spacing rule as an example, Space between two adjacent routes began to depend on the metal width at the 130$nm$ node, and it started to rely on the width of these two adjacent wires at the 65nm node.
-This minimum spacing rule becomes more complicated at the 32$nm$ node.
+With the rapid development of technology nodes, design rules continue increasing in number and complexity in order to secure viable fabrications.
+As discussed in \cite{theimportance}, routability is one of the most important factors to consider during the physical design workflow.  Taking the minimum spacing rule as an example, Space between two adjacent wires began to depend on the metal width at the 130$nm$ node, and it started to rely on the width of these two adjacent wires at the 65nm node.
+This minimum spacing rule becomes even more complicated at the 32$nm$ node.
 The spacing depends not only on the factors mentioned above but also on their \textit{runlength}, which is the total length of two adjacent wires running in parallel.
 This phenomenon indicates that one cannot simply sum the widths of all wires in a certain area and assume that this suffices to check whether the routability constraint is satisfied for that said region.
-In other words, existing approaches for solving physical design problems such as placement and routing scale poorly or do not scale at all for newer and larger designs.
+In other words, existing approaches for solving physical design problems, such as placement and routing scale poorly or do not scale at all for advanced large-scale designs.
 
 
 \subsection{Previous Works}
 With the growing design complexity, a ``congestion map'' is generally used as the metric to deal with routability-driven applications.
-Such map indicates regions where routing will be difficult to achieve.
-Attempts to solve this problem  normally take place in early physical design stages.
+Such map indicates regions the degree of difficulty to route.
+Attempts to solve this problem normally take place in early physical design stages.
 Existing approaches can be categorized as follows.
 \begin{itemize}
-\item \textbf{Static approaches}: Here congestion maps are assumed to be invariant  for placement. The total wirelength of the routing regions of the design is calculated using rent's rule \cite{rentsrule,rentsrulerecursive} to estimate the corresponding congestion map. However, these algorithms are recursive and require run-times that scale poorly with design complexity. 
-\item \textbf{Probabilistic approaches}: Here net topologies are probabilistically generated based upon placement.  Lou \etal~\cite{first} first proposed a stochastic estimation approach that calculates the demand of all feasible routes that could be taken for each net and assigns them an equal probability. The work in~\cite{modeling} adapted and extended the concept of~\cite{first} such that it restrict the total set of possible routing configurations per net to eliminate impractical or rarely-used ones. Other papers, such as~\cite{SMD, 3step} consider all possible routing configurations in a grid-cell-wise approach to obtain probability distributions.
-\item \textbf{Constructive approaches}: Here a global router is used to generate approximated congestion maps by performing a fast routing algorithm.  Mainstream global-router-based algorithms~\cite{mixedsizeplacement,ripple,simplr,nctufast,fastroute} are applied in most routability-driven applications. They are the simplified fully functional global routers with much smaller searching ranges, higher tolerance and threshold. However, as reported in \cite{fastroute}, the only possible way to accurately predict routability using  a global-router-based method is to route the design with the same technique and parameters a posteriori. Furthermore, later studies~\cite{study,ispd14,ispd15} show that global-router-based algorithms generally do not produce results that match the results obtaind after the detailed routing This is  because no local information such as local-pin-number is considered.
-\item \textbf{Supervised-learning approaches}: As discussed in \cite{mlinphysicaldesign}, researchers have discovered the effectiveness of applying various machine learning techniques to solve physical design problems. The work in \cite{drcpredict18} proposed a Design Rule Checking (DRC) violation prediction model which determines whether a certain routing region  violates a design rule.   \cite{drcpredict18,drcDAT18} have not embedded the prediction model into design tools, hence the overall impact on physical design is not fully observable. On the other hand, \cite{drcingr} takes the DRC prediction into consideration when performing routing. As a result, while the detailed routing performance is improved, that of global routing is worsened. This is  due to the model limitation that only evaluates local DRC violations.
+\item \textbf{Static approaches}: Here, congestion maps are assumed to be invariant  for placement. The total wirelength of the routing regions of the design is calculated using rent's rule \cite{rentsrule,rentsrulerecursive} to estimate the corresponding congestion map. However, these algorithms are recursive that scale poorly with increasing design complexity. 
+\item \textbf{Probabilistic approaches}: In this approach, net topologies are probabilistically generated based upon placement.  Lou \etal~\cite{first} first proposed a stochastic estimation approach that calculates the demand of all feasible routes that could be taken for each net and assigns them an equal probability. The work in~\cite{modeling} adapted and extended the concept of~\cite{first} such that it restricts the total set of possible routing configurations per net to eliminate impractical or rarely-used ones. Approaches~\cite{SMD, 3step} consider all possible routing configurations in a grid-cell-wise approach to obtain probability distributions.
+\item \textbf{Constructive approaches}: Here, a global router is used to generate approximated congestion maps by performing a fast routing algorithm. Mainstream global-router-based algorithms~\cite{mixedsizeplacement,ripple,simplr,nctufast,fastroute} are applied in most routability-driven applications. They are the simplified fully functional global routers with much smaller searching ranges, higher tolerance and threshold. However, as reported in \cite{fastroute}, the only possible way to accurately predict routability using a global-routing based method is to route the design with the same technique and parameters the predictor used. Furthermore, later studies~\cite{study,ispd14,ispd15} show that global-routeing based algorithms generally do not produce comparable results with the results obtained after the detailed routing This is because no local information such as local pin distribution is considered.
+\item \textbf{Supervised-learning approaches}: As discussed in \cite{mlinphysicaldesign}, researchers have discovered the effectiveness of applying various machine learning techniques to solve physical design problems. The work in \cite{drcpredict18} proposed a Design Rule Checking (DRC) violation prediction model which determines whether a certain routing region  violates a design rule.   \cite{drcpredict18,drcDAT18} did not embed the prediction model into design tools, hence the overall impact on physical design is not fully observable. On the other hand, \cite{drcingr} takes the DRC prediction into consideration when performing routing. Although the detailed routing performance is improved, results of global routing is worsened. This is due to the model limitation that only evaluates local DRC violations.
 \end{itemize}
 
 
 \subsection{Overview of Our Work}
-In this paper, we propose a supervised-learning based algorithm for constructing an accurate routability model which not only considers local information but global resources as well.
+In this paper, we propose a supervised-learning based algorithm for constructing an accurate routability model which not only considers local information, such as local pins and nets, but also global resources, such as global paths distribution.
 The proposed algorithm learns from the placement and global routing instances and extracts highly ranked local features as studied in \cite{parameterstudy}, while taking into account global routing information.
-Experimental results show that our method has a speedup of 9.33$\times$ compared to pattern-routing based methods, and a speedup of 17.45$\times$ when compared to conventional mainstream global-routing-based approaches.
-Moreover, by embedding our prediction model into the design tools, we observed an improved performance not only for global routing, but also for the routability-driven edge shifting technique proposed in \cite{fastroute}.
+Experimental results show that our method has a speedup of 9.33$\times$ compared to pattern-routing based methods, and a speedup of 17.45$\times$ when compared to conventional mainstream global-routing based approaches. Also, a better layout topology for routing is obtained, by applying our prediction model when performing Rectilinear Steiner Minimum Tree (RSMT) optimization inspired by the edge-shifting technique proposed in \cite{fastroute}.
+Moreover, by embedding our model into the design tools, we observed an improved performance for global routing.
 
 
 Our key contributions are as follows:
@@ -34,10 +34,10 @@ Our key contributions are as follows:
 \item We introduce a supervised-learning congestion prediction algorithm to efficiently generate a routability model.
 \item We describe how to define and extract effective features at a post-placement stage.
 \item We developed a probabilistic algorithm for model training.
-\item We embedded our trained model into the global router to optimise routing topology.
+\item We embedded our trained model into the global router to optimize routing topology.
 \end{itemize}
 
-The rest of the paper is organised as follows.
-\Cref{sec:prelim} explains the problem formulation and terminology related to routability optimisation.
+The rest of the paper is organized as follows.
+\Cref{sec:prelim} explains the problem formulation and terminology related to routability optimization.
 In \Cref{sec:methodology}, the proposed framework is presented.
 The results are discussed in \Cref{sec:result}. Finally, conclusions are presented in \Cref{sec:conlu}.

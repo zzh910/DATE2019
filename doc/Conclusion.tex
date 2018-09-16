@@ -1,10 +1,10 @@
 \section{Conclusion}
 \label{sec:conlu}
 
-We addressed the global routing optimisation problem using supervised-learning based algorithms.
+We addressed the global routing optimization problem using supervised-learning based algorithms.
 We showed that recent approaches that extract design features are not sufficient for achieving desirable global routing performance.
 We proposed a regression algorithm that uses advanced features for model training and congestion prediction, which is at least 9.33 times faster than conventional methods.
 We then embedded our model into Steiner tree edge shifting and observed that final  routing topology is improved in terms of having fewer \text{Max\_OF} and \text{Total\_OF}.
 We also implemented the model in a global router to evaluate the effectiveness of our proposed algorithm.
-Our experiments show that, without negatively impacting timing convergence, we are able to improve the routing performance by reducing 10\% of total overflow and a case-wise 4.8\% runtime speedup.
-Our future works include (1) improving the model accuracy, (2) combining  detailed routing features to optimise detailed routing, and (3) applying our methodology to emerging technology nodes.
+Our experiments showed that, we can improve the routing performance by reducing 10\% of total overflow and a case-wise 4.8\% runtime speedup while guaranteeing the timing convergence.
+Our future works include (1) improving the model accuracy, (2) combining  detailed routing features to optimize detailed routing, and (3) applying our methodology to emerging technology nodes.

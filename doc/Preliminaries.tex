@@ -12,22 +12,22 @@
 	\label{fig:grid_model}
 \end{figure}
 
-Global routing is performed on a grid which is the logical graph representation of the physical chip. The grid graph \emph{G} is tile-based, which means that the entire chip is partitioned into multiple sub-regions, as illustrated in Fig.~\ref{fig:grid_model}. Each sub-region is referred to as a grid cell, or a global routing cell. The cells are further subdivided with vertical and horizontal gridlines, referred to as routing tracks, along which routes are determined and wires can be created. Each vertex in \emph{G} represents a corresponding tile, and each edge in \emph{G} between vertices corresponds to the shared boundary of two tiles.
+Global routing is performed on a grid which is the logical graph representation of the physical chip. The grid graph \emph{G} is tile-based, which means that the entire chip is partitioned into multiple sub-regions, as illustrated in Fig.~\ref{fig:grid_model}. Each sub-region is referred to as a grid cell, or a global routing cell. The cells are further subdivided with vertical and horizontal gridlines, i.e., along which routes are determined and wires can be created. Each vertex in \emph{G} represents a corresponding tile, and each edge in \emph{G} between vertices corresponds to the shared boundary of two tiles.
 
 \subsection{Routing Metrics}
 \subsubsection{Routing Capacity}
 The graph \emph{G} used for global routing needs to capture the capacities of the routing regions. The capacity of an edge \emph{e} $\in$ \emph{G} between two vertices \emph{u} and \emph{v} is defined as the maximum number of available routing tracks between the routing regions of \emph{u} and \emph{v}. 
 
-High precision capacity metric can be complex and possible in practice, such track-based capacity can be extended to consider specific routing elements such as blockages, vias and fixed pins. Such elements have different penalties to their respective edge capacity. For example, blockages may consume the capacity of an entire edge. 
+High-precision capacity metric can be complex and possible in practice, such track-based capacity can be extended to consider specific routing elements such as blockages, vias, and fixed pins. Such elements have different penalties to their respective edge capacity. For example, blockages may consume the capacity of an entire edge. 
 
 \subsubsection{Overflow}
-If the total usage of one edge is larger than its capacity, then the tile containing that edge is considered to be congested, and the amount of overhead is referred to as {\it overflow}, $of(e)=\text{usage}(e)-\text{capacity}(e)$. Detailed routing would not be able to route all nets assigned to congested areas due to lack of routing resources. However, there is generally a degree of tolerance as a detailed router may be able to spread the routes from the congested edges to adjacent less-congested ones, if those are available. Not only do global routing paths contribute to the usage of edge, other factors, such as local pins, could cause an overflow as well by decreasing edge capacity.
+If the total usage of an edge $e$ is larger than its capacity, then the tile containing that edge is considered to be congested, and the amount of overhead is referred to as {\it overflow}, $of(e)=\text{usage}(e)-\text{capacity}(e)$. Detailed routing would not be able to route all nets assigned to congested areas due to lack of routing resources. However, there is generally a degree of tolerance as a detailed router may be able to spread the routes from the congested tiles to adjacent less-congested ones, if those are available. Not only do global routing paths contribute to the usage of edge, other factors, such as local pins, could cause an overflow as well by decreasing edge capacity.
 % \subsubsection{Wirelength}
 % The minimization of wirelength is another important metric for global routing. Decreased wirelength implies smaller power consumption and delays, which are two key factors for  performance-driven optimization. Inherently, congestion minimization conflicts with wirelength minimization, because detours may be introduced to avoid congested regions and that leads to longer wirelength. Therefore, the trade-off between these features has to be carefully tuned based on the requirements of circuit design. 
 
 \subsection{Routability Problem Formulation}
-The key objective is to maximize the routability of a design, which is used as a metric to predict the overall quality of routine generated for a  circuit subjected to net and other design constraints.
-So the routing problem can be formulated as follows:
+The key objective is to maximize the routability of a design, which is used as a metric to predict the overall quality of routing generated for a design subjected to nets and other design constraints.
+Thus the routing problem can be formulated as follows:
 \begin{subequations}
 \begin{align*}
     \max  \       & f(X), \\
@@ -35,12 +35,12 @@ So the routing problem can be formulated as follows:
                   & n(X) \leq 0,
 \end{align*}
 \end{subequations}
-where f(X) is the measure of quality (routabibility), and $n(X)$ denote network constraints and $d(x)$ denotes a set of other design constraints.  Network constraints indicate that the topology of the network must satisfy certain requirements.  E.g., pins of each net all have to be  connected without loops. Design constraints, on the other hand, are to ensure that the implementation of the network topology meets certain requirements. E.g., that there be no overlapping routes on the same layer or that the routing direction follows a layer's specifications. Our work fits within the routability optimisation problem.
+where f(X) is the measure of quality (routability), and $n(X)$ denotes network constraints and $d(x)$ denotes a set of other design constraints.  Network constraints indicate that the topology of the network must satisfy certain requirements, e.g., pins of each net all have to be  connected without loops. On the other hand, design constraints are to ensure that the implementation of the network topology meets certain requirements, e.g., the routing direction follows a layer's specifications. Our work fits within the routability optimization problem.
 
 \subsection{Supervised Data Learning Technique}
-Data-learning is a powerful technique which can drive knowledge from large amounts of data to predict and generalise unseen data patterns. There are four main categories of data learning: supervised, Unsupervised, semi-supervised, and reinforcement learning. In the research field of physical design algorithms, supervised learning is widely used.
+Data learning is a powerful technique which can drive knowledge from large amounts of data to predict and generalize unseen data patterns. In the research field of physical design algorithms, supervised learning is widely used.
 
-As illustrated in Fig.~\ref{fig:ml_flow}, given certain features as input, the training process builds a set of models which are subsequently evaluated. One way of testing the quality of models is by feeding the same input features as those fed during training to see how closely the predicted values match the the original target output. After such an evaluation, acceptable models are selected for making the predictions in two sets of ML applications. 
+As illustrated in Fig.~\ref{fig:ml_flow}, given certain features as input, the training process builds a set of models which are subsequently evaluated. One way of testing the quality of models is to feed the same input features as those fed during training to see how closely the predicted values match the the original target output. After such an evaluation, acceptable models are selected for making the predictions in two sets of machine learning applications. 
 \begin{figure}[tb!]
     \centering
     \includegraphics[width=.68\linewidth]{ML_flow}
