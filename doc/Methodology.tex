@@ -38,7 +38,7 @@ Each edge $j$ in path $i$ is assigned a probability $p(i)$ which reflects its li
     \caption{(a) A design grid with blockage and two possible paths; (b) Corresponding routing graph and related edge capacity.}
     \label{fig:2pinexample}
 \end{figure}
-An simple example is shown in \Cref{fig:2pinexample}, there are two possible paths, P1 and P2, for routing the pin-pair, where two pins are located at the lower left and upper right corners. From the routing graph， we obtain $A(P1)=106$ and $A(P2)=108$. So the probability of choosing path P1 is $p(P1)=106/(106+108)=0.49$, therefore $p(P2)=0.51$. The final usage assigned for edges passed by these two paths will then be increased by either 0.49 or 0.51, accordingly.
+An simple example is shown in \Cref{fig:2pinexample}, there are two possible paths, P1 and P2, for routing the pin-pair, where two pins are located at the lower left and upper right corners. From the routing graph, we obtain $A(P1)=106$ and $A(P2)=108$. So the probability of choosing path P1 is $p(P1)=106/(106+108)=0.49$, therefore $p(P2)=0.51$. The final usage assigned for edges passed by these two paths will then be increased by either 0.49 or 0.51, accordingly.
 \end{itemize}
 
 \subsection{Routability-Driven Edge Shifting}
@@ -47,7 +47,7 @@ We use our routability information to guide the edge shifting technique in FLUTE
 To perform shifting is to move Steiner points. The edge that connects at least one Steiner point is selected. The moving direction for the Steiner point is perpendicular to the edge, and the allowed range for moving the said Steiner point is determined by other paths that connect to the two endpoints of the shifting edge, whichever is shorter. As is demonstrated in \Cref{fig:edgeshifting}, the edge-to-shift is horizontal, therefore, the Steiner point is moving in a vertical direction, and the range of moving is determined by the shortest path which previously connected the left endpoint of the shifting edge. 
 \begin{figure}[htbp]
     \centerline{\includegraphics[height=1.8in, width=2.7in]{edgeshifting}}
-    \caption{(a) The initial Steiner tree (b) Allowed moving area for Steiner point (c)(d) Modified tree structures based on different congestion map.}
+    \caption{(a) The initial Steiner tree; (b) Allowed moving area for Steiner point; (c)(d) Modified tree structures based on different congestion map.}
     \label{fig:edgeshifting}
 \end{figure}
 
